@@ -1,0 +1,20 @@
+
+
+
+
+<textarea id="vB_Editor_001_popup_fontname">I am the nextarea with id vB_Editor_001_popup_fontname</textarea>
+
+
+
+
+
+
+<script>
+document.getElementById('vB_Editor_001_popup_fontname').setAttribute("onclick", "myWrappingFunction()");
+
+function myWrappingFunction() {
+  var originalData = document.getElementById('vB_Editor_001_popup_fontname').value;
+  document.getElementById('vB_Editor_001_popup_fontname').value = '[FONT="Arial"]' + originalData + '[/FONT]';                        
+}
+</script>
+

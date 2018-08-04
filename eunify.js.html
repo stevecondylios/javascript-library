@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Eunify</title>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!--optional --> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+    <link rel="icon" href="https://cdn.blog.st-hatena.com/images/emoji/ugomemo/e-B60.gif" type="image/x-icon"> 
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+
+
+
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+ -->
+
+
+    <!-- Airtasker css -->
+    <!-- <link rel="stylesheet" media="all" href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css" /> -->
+    <!-- Reece -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://www.reece.com.au/themes/reece-main/css/bootstrap.css?m=1531091340" /> -->
+
+    <!-- https://www.pollen.com.au/static/css/pollen.css -->
+
+
+
+    <style>
+        .container-fluid {
+              padding: 60px 50px;
+          }
+        
+          .bg-grey {
+              background-color: #f6f6f6;
+          }
+        
+        
+         /*For copy to clipboard button */
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            opacity: 1; /*THIS*/
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 170px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -86px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space:nowrap;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+
+
+button {
+    /*display: block !important;*/
+    visibility: visible !important;
+}
+
+
+img {
+    /*display: block !important;*/
+    visibility: visible !important;
+}
+
+
+.visible-sm {
+    display: block !important;
+    visibility: visible !important;
+}
+
+    </style>
+
+
+
+
+</head>
+
+
+
+<body>
+
+    <div class="jumbotron text-center bg-grey">
+        <h1>
+            Eunify
+        </h1>
+    </div>
+
+
+
+
+    <!-- Query section -->
+    <div class="container-fluid bg-grey">
+
+
+        <!-- First row on LHS -->
+        <div class="row">
+
+
+            <div class="col-sm-1">
+
+            </div>
+
+            <div class="col-sm-10">
+                <textarea id="eunice_input" style="width:100%" placeholder="Enter query" rows="12"></textarea>
+            </div>
+
+            <div class="col-sm-1" style="LINE-HEIGHT:1px;">
+                <span style="color:white; font-size:0.5pt;">
+                	
+SELECT customer.cmcustno, customer.cmdelname, customer.cmclass, debtor.dmindustry, ludesc, customer.cmwhse, customer.cmdmylstsld AS last_sold_date, customer.cmdmyform AS date_opened, customer.cmcashcust, customer.cmdeleted,debtor.dmdormantdmy AS dormant_date 
+                FROM customer
+                JOIN reece.Debtor ON cmcustno = dmdebtno
+                JOIN reece.lukup ON dmindustry = lucode
+                WHERE lutabid = "IT" AND cmkeycust = "C"
+    
+</span>
+            </div>
+
+        </div>
+
+        <!-- end of first row on LHS -->
+
+        <br>
+
+
+        <!-- Second row on LHS -->
+        <div class="row">
+
+            <div class="col-sm-1">
+
+            </div>
+
+            <div class="col-sm-10">
+                <textarea id="eunice_output" style="border: none; resize:none; width:100%;" rows="12"></textarea>
+                <!-- WORKS rows="12" cols="55" -->
+            </div>
+
+
+            <script>
+                document.getElementById('eunice_input').onkeyup = function() {
+                  document.getElementById('eunice_output').textContent = '"exec(\'' + this.value.replace(/"|'/ig, '\\"') + '\') AT TRS_SDS"';
+                };
+            </script>
+
+
+            <div class="col-sm-1">
+                <!-- copy to clipboard button-->
+
+
+                <!-- WORKING -->
+                <!-- The button used to copy the text -->
+
+                <div class="tooltip">
+                    <button class="btn" onclick="myFunction()" onmouseout="outFunc()" style="border: 0; background: transparent">
+	<span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+    <img src="https://clipboardjs.com/assets/images/clippy.svg" width="25" height="32" alt="button" />
+</button>
+                </div>
+
+
+                <!-- <div class="tooltip w3-mobile">
+<button onclick="myFunction()" onmouseout="outFunc()" class="w3-button w3-border w3-light-grey w3-left w3-mobile">
+  <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+  Copy text
+  </button>
+</div> -->
+
+
+
+                <script>
+                    function myFunction() {
+                      var copyText = document.getElementById("eunice_output");
+                      copyText.select();
+                      document.execCommand("Copy");
+                      var tooltip = document.getElementById("myTooltip");
+                      tooltip.innerHTML = "Copied!";
+                    }
+                    
+                    function outFunc() {
+                      var tooltip = document.getElementById("myTooltip");
+                      tooltip.innerHTML = "Copy to clipboard";
+                    }
+                </script>
+
+
+
+
+            </div>
+            <!-- end of copy to clipboard buttion -->
+
+
+        </div>
+        <!-- End of second row on LHS -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <!-- End of query section-->
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+    <!-- Bottom of page -->
+    <!--     <footer class="container">
+      <p>&copy; Eunify 2018</p>
+    </footer> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
