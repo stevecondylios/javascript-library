@@ -34,7 +34,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
  -->
 
 
@@ -98,26 +97,18 @@
             visibility: visible;
             opacity: 1;
         }
-
-
-
 button {
     /*display: block !important;*/
     visibility: visible !important;
 }
-
-
 img {
     /*display: block !important;*/
     visibility: visible !important;
 }
-
-
 .visible-sm {
     display: block !important;
     visibility: visible !important;
 }
-
     </style>
 
 
@@ -156,7 +147,7 @@ img {
 
             <div class="col-sm-1" style="LINE-HEIGHT:1px;">
                 <span style="color:white; font-size:0.5pt;">
-                	
+                    
 SELECT customer.cmcustno, customer.cmdelname, customer.cmclass, debtor.dmindustry, ludesc, customer.cmwhse, customer.cmdmylstsld AS last_sold_date, customer.cmdmyform AS date_opened, customer.cmcashcust, customer.cmdeleted,debtor.dmdormantdmy AS dormant_date 
                 FROM customer
                 JOIN reece.Debtor ON cmcustno = dmdebtno
@@ -188,9 +179,18 @@ SELECT customer.cmcustno, customer.cmdelname, customer.cmclass, debtor.dmindustr
 
             <script>
                 document.getElementById('eunice_input').onkeyup = function() {
-                  document.getElementById('eunice_output').textContent = '"exec(\'' + this.value.replace(/"|'/ig, '\\"') + '\') AT TRS_SDS"';
+                  document.getElementById('eunice_output').textContent = '"exec(\'' + this.value.replace(/"|'/ig, '\\"').replace(/\[EUNICE_DSN\]\.\[eunice\]\.\[reece\]\.\[/ig, '').replace(/\[TRS_SDS\]\.\[eunice\]\.\[reece\]\.\[/ig, '').replace(/\]/ig, '').replace(/\[/ig, '').replace(/\n/ig, ' ') + '\') AT TRS_SDS"';
                 };
             </script>
+
+
+<!-- In the query below, we want to replace [EUNICE_DSN].[eunice].[reece].[qheads] or [TRS_SDS].[eunice].[reece].[qheads] with simply qheads -->
+<!-- SELECT qheads.qhcustno, qheads.qhorddmy, qheads.qhintref
+from [EUNICE_DSN].[eunice].[reece].[qheads]
+WHERE qhtype = ‘Q’
+
+EUNICE_DSN can be TRS_SDS -->
+
 
 
             <div class="col-sm-1">
@@ -202,7 +202,7 @@ SELECT customer.cmcustno, customer.cmdelname, customer.cmclass, debtor.dmindustr
 
                 <div class="tooltip">
                     <button class="btn" onclick="myFunction()" onmouseout="outFunc()" style="border: 0; background: transparent">
-	<span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+    <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
     <img src="https://clipboardjs.com/assets/images/clippy.svg" width="25" height="32" alt="button" />
 </button>
                 </div>
